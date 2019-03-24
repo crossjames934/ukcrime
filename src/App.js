@@ -4,7 +4,7 @@ import './App.css';
 
 import GeoMap from './GeoMap';
 import Controls from './Controls';
-import StreetNames from './StreetNames';
+// import StreetNames from './StreetNames';
 import Info from './Info';
 
 class App extends Component {
@@ -16,7 +16,7 @@ class App extends Component {
             longitude: "-0.1277",
             date: "2019-01",
             streetNames: [],
-            zoom: "17",
+            zoom: "15",
             loading: false,
             postcode: "WC2N 5DU"
         };
@@ -25,6 +25,14 @@ class App extends Component {
         this.updatePostcode = this.updatePostcode.bind(this);
         this.changeDate = this.changeDate.bind(this);
         this.getPostcode = this.getPostcode.bind(this);
+        // Whether mouse is pressed or not becomes global variable for use in other components
+        window.mouseIsDown = false;
+        document.addEventListener('mousedown', () => {
+            window.mouseIsDown = true;
+        });
+        document.addEventListener('mouseup', () => {
+            window.mouseIsDown = false;
+        })
     }
 
     getData() {
@@ -103,6 +111,8 @@ class App extends Component {
                         zoom={this.state.zoom}
                         updateCoordinates={this.updateCoordinates}
                         getPostcode={this.getPostcode}
+                        data={this.state.data}
+                        date={this.state.date}
                     />
                     <Controls
                         postcode={this.state.postcode}
@@ -116,7 +126,7 @@ class App extends Component {
                         updateCoordinates={this.updateCoordinates}
                     />
                 </header>
-                <StreetNames nameList={this.state.streetNames}/>
+                {/*<StreetNames nameList={this.state.streetNames}/>*/}
                 <Info data={this.state.data}/>
             </div>
         );

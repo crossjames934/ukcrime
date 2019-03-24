@@ -29,10 +29,19 @@ header {
     height: 80vh;
 }
 
+.mapboxgl-ctrl-attrib-inner {
+    display: none;
+}
+
 .marker {
-    background: black;
-    width: 5px;
+    width: 30px;
     height: 30px;
+}
+
+.markerContainer {
+    background: rgba(255, 255, 255, 0.8);
+    border: 3px solid black;
+    padding: 3px;
 }
 
 .controls {
@@ -62,7 +71,9 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     width: 90vw;
-    margin: 0 auto;
+    margin: 2vh auto;
+    height: 100vh;
+    overflow-y: scroll;
 }
 
 .infoCard {

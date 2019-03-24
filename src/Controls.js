@@ -4,18 +4,6 @@ import MapIcon from './mapIcon.svg';
 import ChartIcon from './chartIcon.svg';
 
 class Controls extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     // this.state = {
-    //     //     postcode: "WC2N 5DU"
-    //     // };
-    //     // this.handleChange = this.handleChange.bind(this);
-    // }
-
-    // handleChange(event) {
-    //     this.setState({[event.target.name]: event.target.value}, this.getLatitudeAndLongitude);
-    // }
-
     render() {
         const postcodeInput = "postcodeInput";
         const dateInput = "dateInput";
