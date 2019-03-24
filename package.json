@@ -12,6 +12,9 @@
     "react-dom": "^16.8.5",
     "react-scripts": "2.1.8"
   },
+  "engines" : {
+    "node" : ">=0.12"
+  },
   "scripts": {
     "start": "node server.js",
     "build": "react-scripts build",
