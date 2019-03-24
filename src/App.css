@@ -1,0 +1,58 @@
+/*
+#CEE5F2
+#ACCBE1
+#7C98B3
+#637081
+#536B78
+ */
+
+body {
+    background: #CEE5F2;
+}
+
+.myApp {
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.geoMap {
+    width: 90vw;
+    margin: 0 auto;
+    min-height: 600px;
+}
+
+.controls {
+    background: #536B78;
+    width: 300px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.formInput {
+    font-size: 16px;
+    padding: 2px;
+}
+
+.infoCardContainer {
+    background: #7C98B3;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90vw;
+    margin: 0 auto;
+}
+
+.infoCard {
+    background: #ACCBE1;
+    border-radius: 10px;
+    width: 300px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.softShadow {
+    -webkit-box-shadow: 0 0 30px 2px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 0 30px 2px rgba(0,0,0,0.75);
+    box-shadow: 0 0 30px 2px rgba(0,0,0,0.75);
+}
