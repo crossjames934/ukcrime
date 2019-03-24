@@ -5,7 +5,7 @@ import './App.css';
 import GeoMap from './GeoMap';
 import Controls from './Controls';
 // import StreetNames from './StreetNames';
-import Info from './Info';
+// import Info from './Info';
 
 class App extends Component {
     constructor(props) {
@@ -20,7 +20,6 @@ class App extends Component {
             loading: false,
             postcode: "WC2N 5DU"
         };
-        this.getData();
         this.updateCoordinates = this.updateCoordinates.bind(this);
         this.updatePostcode = this.updatePostcode.bind(this);
         this.changeDate = this.changeDate.bind(this);
@@ -33,6 +32,10 @@ class App extends Component {
         document.addEventListener('mouseup', () => {
             window.mouseIsDown = false;
         })
+    }
+
+    componentDidMount() {
+        this.getData();
     }
 
     getData() {
@@ -127,7 +130,7 @@ class App extends Component {
                     />
                 </header>
                 {/*<StreetNames nameList={this.state.streetNames}/>*/}
-                <Info data={this.state.data}/>
+                {/*<Info data={this.state.data}/>*/}
             </div>
         );
     }

@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import mapboxgl from 'mapbox-gl';
 import './App.css';
 
+import CrimeOverlay from './CrimeOverlay';
+
 import drugIcon from './drugs.svg';
 import firearmIcon from './firearm.svg';
 import stolenIcon from './stolenGoods.svg';
@@ -14,8 +16,12 @@ class GeoMap extends Component {
         this.previousLat = this.props.latitude;
         this.previousLon = this.props.longitude;
         this.markers = [];
-        // this.previousDate = this.props.date;
         this.previousDataLength = this.props.data.length;
+        this.state = {
+            highlightedCrime: null,
+            mouseX: 0,
+            mouseY: 0
+        };
         mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jvc3NqYW1lczkzNCIsImEiOiJjanRsYTBoaGkwYmVnM3lwZnRqcm1raGkwIn0.n6wWS702HkBqpsQ79d-QgA';
     }
 
@@ -41,13 +47,6 @@ class GeoMap extends Component {
         this.map.on('zoom', () => {
            this.placeMarkers();
         });
-        // this.map.on("load", function () {
-        //     /* Image: An image is loaded and added to the map. */
-        //     this.map.loadImage(drugIcon, (error, image) => {
-        //         if (error) throw error;
-        //         this.map.addImage("custom-marker", image);
-        //     })
-        // });
     }
 
     placeMarkers() {
@@ -86,11 +85,17 @@ class GeoMap extends Component {
             img.className = 'marker';
             el.appendChild(img);
             el.className = 'markerContainer';
+            el.onmouseover = () => {
+                const e = window.event;
+                this.setState({highlightedCrime: crime, mouseX: e.clientX, mouseY: e.clientY});
+            };
+            el.onmouseout = () => {
+                this.setState({highlightedCrime: null});
+            };
             this.markers.push(new mapboxgl.Marker(el)
                 .setLngLat({lng: crime.location.longitude, lat: crime.location.latitude})
                 .addTo(this.map));
         });
-        console.log(this.map);
     }
 
     componentDidMount() {
@@ -112,6 +117,7 @@ class GeoMap extends Component {
     render() {
         return (
             <div>
+                <CrimeOverlay mouseX={this.state.mouseX} mouseY={this.state.mouseY} crime={this.state.highlightedCrime}/>
                 <div ref={el => this.mapContainer = el} className="geoMap"/>
             </div>
         );
