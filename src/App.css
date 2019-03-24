@@ -6,8 +6,16 @@
 #536B78
  */
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 body {
     background: #CEE5F2;
+}
+
+header {
+    height: 100vh;
 }
 
 .myApp {
@@ -17,16 +25,30 @@ body {
 
 .geoMap {
     width: 90vw;
-    margin: 0 auto;
-    min-height: 600px;
+    margin: 2vh auto;
+    height: 80vh;
+}
+
+.marker {
+    background: black;
+    width: 5px;
+    height: 30px;
 }
 
 .controls {
     background: #536B78;
-    width: 300px;
-    margin: 20px auto;
+    /*width: 400px;*/
+    margin: 2vh auto;
     padding: 20px;
     border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.controlForm {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .formInput {

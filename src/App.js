@@ -12,20 +12,24 @@ class App extends Component {
         super(props);
         this.state = {
             data: [],
-            // latitude: "51.507351",
-            // longitude: "-0.127758",
             latitude: "51.5073",
             longitude: "-0.1277",
             date: "2019-01",
             streetNames: [],
             zoom: "17",
+            loading: false,
+            postcode: "WC2N 5DU"
         };
         this.getData();
         this.updateCoordinates = this.updateCoordinates.bind(this);
+        this.updatePostcode = this.updatePostcode.bind(this);
+        this.changeDate = this.changeDate.bind(this);
+        this.getPostcode = this.getPostcode.bind(this);
     }
 
     getData() {
         let crimeAPI = `https://data.police.uk/api/stops-street?lat=${this.state.latitude}&lng=${this.state.longitude}&date=${this.state.date}`;
+        this.setState({loading: true});
         axios
             .get(crimeAPI)
             .then(res => {
@@ -33,7 +37,8 @@ class App extends Component {
                 const filteredNames = streetNames.filter((streetName, pos) => streetNames.indexOf(streetName) === pos);
                 this.setState({
                     data: res.data,
-                    streetNames: filteredNames
+                    streetNames: filteredNames,
+                    loading: false
                 });
                 // console.log(res.data);
                 // console.log(this.state);
@@ -51,11 +56,66 @@ class App extends Component {
         }, this.getData);
     }
 
+    getLatitudeAndLongitude() {
+        const postcodeAPI = "http://api.postcodes.io/postcodes/";
+        const postcodeRegex = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/;
+        if (postcodeRegex.test(this.state.postcode)) {
+            axios
+                .get(postcodeAPI + this.state.postcode.split(" ").join(""))
+                .then(res => {
+                    this.updateCoordinates(res.data.result.latitude, res.data.result.longitude);
+                })
+                .catch(err => {
+                    // console.log(err)
+                });
+        }
+    }
+
+    getPostcode(lat, lon) {
+        const latLonToPostcodeAPI = `http://api.postcodes.io/postcodes?lon=${lon}&lat=${lat}`;
+        axios
+            .get(latLonToPostcodeAPI)
+            .then(res => {
+                this.setState({postcode: res.data.result[0].postcode});
+            })
+            .catch(err => {
+                // console.log(err)
+            });
+    }
+
+    updatePostcode(event) {
+        this.setState({postcode: event.target.value}, this.getLatitudeAndLongitude);
+    }
+
+    changeDate(date) {
+        this.setState({
+            date: date
+        }, this.getData);
+    }
+
     render() {
         return(
             <div className="myApp">
-                <GeoMap latitude={this.state.latitude} longitude={this.state.longitude} zoom={this.state.zoom} updateCoordinates={this.updateCoordinates}/>
-                <Controls updateCoordinates={this.updateCoordinates}/>
+                <header>
+                    <GeoMap
+                        latitude={this.state.latitude}
+                        longitude={this.state.longitude}
+                        zoom={this.state.zoom}
+                        updateCoordinates={this.updateCoordinates}
+                        getPostcode={this.getPostcode}
+                    />
+                    <Controls
+                        postcode={this.state.postcode}
+                        updatePostcode={this.updatePostcode}
+                        latitude={this.state.latitude}
+                        longitude={this.state.longitude}
+                        loading={this.state.loading}
+                        recordCount={this.state.data.length}
+                        changeDate={this.changeDate}
+                        date={this.state.date}
+                        updateCoordinates={this.updateCoordinates}
+                    />
+                </header>
                 <StreetNames nameList={this.state.streetNames}/>
                 <Info data={this.state.data}/>
             </div>
