@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "d3": "^5.9.2",
     "express": "^4.16.4",
     "express-favicon": "^2.0.1",
     "mapbox-gl": "^0.53.1",
@@ -12,12 +13,12 @@
     "react-dom": "^16.8.5",
     "react-scripts": "2.1.8"
   },
-  "engines" : {
-    "node" : "10.15.3",
+  "engines": {
+    "node": "10.15.3",
     "npm": "6.4.1"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

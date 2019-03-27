@@ -20,12 +20,13 @@ class GeoMap extends Component {
         this.state = {
             highlightedCrime: null,
             mouseX: 0,
-            mouseY: 0
+            mouseY: 0,
+            markers: [],
         };
         mapboxgl.accessToken = 'pk.eyJ1IjoiY3Jvc3NqYW1lczkzNCIsImEiOiJjanRsYTBoaGkwYmVnM3lwZnRqcm1raGkwIn0.n6wWS702HkBqpsQ79d-QgA';
     }
 
-    createMap() {
+    createMap = () => {
         const {latitude, longitude, zoom} = this.props;
         this.mapContainer.innerHTML = "";
         this.map = new mapboxgl.Map({
@@ -47,14 +48,13 @@ class GeoMap extends Component {
         this.map.on('zoom', () => {
            this.placeMarkers();
         });
-    }
+    };
 
-    placeMarkers() {
+    placeMarkers = () => {
+        this.markers.forEach(m => {
+            m.remove();
+        });
         this.markers = [];
-        // let previousMarkers = document.getElementsByClassName('marker');
-        // while (previousMarkers[0]) {
-        //     previousMarkers[0].parentNode.removeChild(previousMarkers[0]);
-        // }
         let previousMarkersContainers = document.getElementsByClassName('markerContainer');
         while (previousMarkersContainers[0]) {
             previousMarkersContainers[0].parentNode.removeChild(previousMarkersContainers[0]);
@@ -92,9 +92,11 @@ class GeoMap extends Component {
             el.onmouseout = () => {
                 this.setState({highlightedCrime: null});
             };
-            this.markers.push(new mapboxgl.Marker(el)
+            const m = new mapboxgl.Marker(el)
                 .setLngLat({lng: crime.location.longitude, lat: crime.location.latitude})
-                .addTo(this.map));
+                .addTo(this.map);
+
+            this.markers.push(m);
         });
     }
 
@@ -115,10 +117,11 @@ class GeoMap extends Component {
     }
 
     render() {
+        if (!this.props.mapView) return null;
         return (
             <div>
                 <CrimeOverlay mouseX={this.state.mouseX} mouseY={this.state.mouseY} crime={this.state.highlightedCrime}/>
-                <div ref={el => this.mapContainer = el} className="geoMap"/>
+                <div ref={el => this.mapContainer = el} className="dataDisplay"/>
             </div>
         );
     }

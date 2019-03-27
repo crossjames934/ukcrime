@@ -20,9 +20,9 @@ class Controls extends Component {
                     <div style={gap}/>
                     <p>{this.props.loading ? "Loading..." : "Records: " + this.props.recordCount}</p>
                     <div style={gap}/>
-                    <img src={MapIcon} style={icon} alt="Map Icon"/>
+                    <img onClick={() => this.props.switchView(true)} src={MapIcon} style={icon} alt="Map Icon"/>
                     <div style={gap}/>
-                    <img src={ChartIcon} style={icon} alt="Chart Icon"/>
+                    <img onClick={() => this.props.switchView(false)} src={ChartIcon} style={icon} alt="Chart Icon"/>
                 </form>
             </div>
         );

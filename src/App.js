@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 import GeoMap from './GeoMap';
+import Graphs from './Graphs';
 import Controls from './Controls';
 // import StreetNames from './StreetNames';
 // import Info from './Info';
@@ -18,12 +19,14 @@ class App extends Component {
             streetNames: [],
             zoom: "15",
             loading: false,
-            postcode: "WC2N 5DU"
+            postcode: "WC2N 5DU",
+            mapView: true // False if showing graphs instead
         };
         this.updateCoordinates = this.updateCoordinates.bind(this);
         this.updatePostcode = this.updatePostcode.bind(this);
         this.changeDate = this.changeDate.bind(this);
         this.getPostcode = this.getPostcode.bind(this);
+        this.switchView = this.switchView.bind(this);
         // Whether mouse is pressed or not becomes global variable for use in other components
         window.mouseIsDown = false;
         document.addEventListener('mousedown', () => {
@@ -104,6 +107,10 @@ class App extends Component {
         }, this.getData);
     }
 
+    switchView(map) {
+        this.setState({mapView: map});
+    }
+
     render() {
         return(
             <div className="myApp">
@@ -116,6 +123,10 @@ class App extends Component {
                         getPostcode={this.getPostcode}
                         data={this.state.data}
                         date={this.state.date}
+                        mapView={this.state.mapView}
+                    />
+                    <Graphs
+                        mapView={this.state.mapView}
                     />
                     <Controls
                         postcode={this.state.postcode}
@@ -127,10 +138,9 @@ class App extends Component {
                         changeDate={this.changeDate}
                         date={this.state.date}
                         updateCoordinates={this.updateCoordinates}
+                        switchView={this.switchView}
                     />
                 </header>
-                {/*<StreetNames nameList={this.state.streetNames}/>*/}
-                {/*<Info data={this.state.data}/>*/}
             </div>
         );
     }
