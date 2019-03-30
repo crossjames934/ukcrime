@@ -17,6 +17,7 @@ class GeoMap extends Component {
         this.previousLon = this.props.longitude;
         this.markers = [];
         this.previousDataLength = this.props.data.length;
+        this.previousMapView = this.props.mapView;
         this.state = {
             highlightedCrime: null,
             mouseX: 0,
@@ -48,6 +49,7 @@ class GeoMap extends Component {
         this.map.on('zoom', () => {
            this.placeMarkers();
         });
+        this.placeMarkers();
     };
 
     placeMarkers = () => {
@@ -64,9 +66,12 @@ class GeoMap extends Component {
             const img = document.createElement('img');
             switch(crime.object_of_search) {
                 case "Controlled drugs":
+                case "Psychoactive substances":
                     img.src = drugIcon;
                     break;
                 case "Offensive weapons":
+                case "Firearms":
+                case "Anything to threaten or harm anyone":
                     img.src = firearmIcon;
                     break;
                 case "Stolen goods":
@@ -98,7 +103,7 @@ class GeoMap extends Component {
 
             this.markers.push(m);
         });
-    }
+    };
 
     componentDidMount() {
         this.createMap();
@@ -114,12 +119,15 @@ class GeoMap extends Component {
             this.placeMarkers();
             this.previousDataLength = this.props.data.length;
         }
+        if (this.previousMapView !== this.props.mapView) {
+            this.createMap();
+            this.previousMapView = this.props.mapView;
+        }
     }
 
     render() {
-        if (!this.props.mapView) return null;
         return (
-            <div>
+            <div style={{display: this.props.mapView ? "block" : "none"}}>
                 <CrimeOverlay mouseX={this.state.mouseX} mouseY={this.state.mouseY} crime={this.state.highlightedCrime}/>
                 <div ref={el => this.mapContainer = el} className="dataDisplay"/>
             </div>

@@ -17,7 +17,7 @@ class CrimeOverlay extends Component {
         const crime = this.props.crime;
         return (
             <div className="softShadow" style={overlayStyle}>
-                <p>{crime ? crime.age_range || "No age information" : ""}</p>
+                <p>{crime ? crime.age_range ? "Age: " + crime.age_range : "No age information" : ""}</p>
                 <p>{crime ? crime.gender || "No gender information" : ""}</p>
                 <p>{crime ? crime.object_of_search || "No defined object of search" : ""}</p>
                 <p>{crime ? crime.self_defined_ethnicity || "No self-defined ethnicity" : ""}</p>

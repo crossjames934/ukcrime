@@ -15,7 +15,7 @@ class App extends Component {
             data: [],
             latitude: "51.5073",
             longitude: "-0.1277",
-            date: "2019-01",
+            date: "2018-12",
             streetNames: [],
             zoom: "15",
             loading: false,
@@ -34,7 +34,7 @@ class App extends Component {
         });
         document.addEventListener('mouseup', () => {
             window.mouseIsDown = false;
-        })
+        });
     }
 
     componentDidMount() {
@@ -127,6 +127,7 @@ class App extends Component {
                     />
                     <Graphs
                         mapView={this.state.mapView}
+                        data={this.state.data}
                     />
                     <Controls
                         postcode={this.state.postcode}

@@ -8,15 +8,27 @@ class Controls extends Component {
         const postcodeInput = "postcodeInput";
         const dateInput = "dateInput";
         const gap = {margin: "0 20px"};
-        const icon = {width: 40, height: 40};
+        const verticalMargin = {margin: "10px 0"};
+        const icon = {
+            width: 40,
+            height: 40,
+            border: "3px solid black",
+            borderRadius: 5,
+            padding: 5,
+            cursor: "pointer"
+        };
         return(
             <div className="controls softShadow">
                 <form className="controlForm" onSubmit={e => e.preventDefault()}>
-                    <label htmlFor={postcodeInput}>Post Code: &nbsp;</label>
-                    <input onChange={e => this.props.updatePostcode(e)} value={this.props.postcode} className="formInput" type="text" name="postcode" id={postcodeInput}/>
+                    <div style={verticalMargin}>
+                        <label htmlFor={postcodeInput}>Post Code: &nbsp;</label>
+                        <input onChange={e => this.props.updatePostcode(e)} value={this.props.postcode} className="formInput" type="text" name="postcode" id={postcodeInput}/>
+                    </div>
                     <div style={gap}/>
-                    <label htmlFor={dateInput}>Date: &nbsp;</label>
-                    <input onChange={e => this.props.changeDate(e.target.value)} value={this.props.date} type="month" max="2019-01" className="formInput" name="date" id={dateInput}/>
+                    <div style={verticalMargin}>
+                        <label htmlFor={dateInput}>Date: &nbsp;</label>
+                        <input onChange={e => this.props.changeDate(e.target.value)} value={this.props.date} type="month" max="2019-01" className="formInput" name="date" id={dateInput}/>
+                    </div>
                     <div style={gap}/>
                     <p>{this.props.loading ? "Loading..." : "Records: " + this.props.recordCount}</p>
                     <div style={gap}/>
