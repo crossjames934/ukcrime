@@ -71,7 +71,7 @@ class App extends Component {
     }
 
     getLatitudeAndLongitude() {
-        const postcodeAPI = "http://api.postcodes.io/postcodes/";
+        const postcodeAPI = "https://api.postcodes.io/postcodes/";
         const postcodeRegex = /([Gg][Ii][Rr] 0[Aa]{2})|((([A-Za-z][0-9]{1,2})|(([A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2})|(([A-Za-z][0-9][A-Za-z])|([A-Za-z][A-Ha-hJ-Yj-y][0-9][A-Za-z]?))))\s?[0-9][A-Za-z]{2})/;
         if (postcodeRegex.test(this.state.postcode)) {
             axios
@@ -86,7 +86,7 @@ class App extends Component {
     }
 
     getPostcode(lat, lon) {
-        const latLonToPostcodeAPI = `http://api.postcodes.io/postcodes?lon=${lon}&lat=${lat}`;
+        const latLonToPostcodeAPI = `https://api.postcodes.io/postcodes?lon=${lon}&lat=${lat}`;
         axios
             .get(latLonToPostcodeAPI)
             .then(res => {

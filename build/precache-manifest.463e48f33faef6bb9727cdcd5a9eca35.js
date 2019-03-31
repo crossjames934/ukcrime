@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/static/media/firearm.4b5ca8ac.svg"
   },
   {
-    "revision": "8f789b8928035f338045",
+    "revision": "81ffeda857c01db2f87f",
     "url": "/static/css/main.7c8b4e89.chunk.css"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "/static/media/drugs.0409f2eb.svg"
   },
   {
-    "revision": "8f789b8928035f338045",
-    "url": "/static/js/main.a810baeb.chunk.js"
+    "revision": "81ffeda857c01db2f87f",
+    "url": "/static/js/main.413894d5.chunk.js"
   },
   {
     "revision": "9d6efa39fc2e96c12647dd9a9446e77a",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/static/media/chartIcon.534f6b50.svg"
   },
   {
-    "revision": "4073533784d91266c7cf13210789248b",
+    "revision": "50aa250843ae9fd4480db98d5688a4c9",
     "url": "/index.html"
   }
 ];
