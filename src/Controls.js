@@ -9,14 +9,15 @@ class Controls extends Component {
         const dateInput = "dateInput";
         const gap = {margin: "0 20px"};
         const verticalMargin = {margin: "10px 0"};
-        const icon = {
-            width: 40,
-            height: 40,
-            border: "3px solid black",
-            borderRadius: 5,
-            padding: 5,
-            cursor: "pointer"
-        };
+        // const icon = {
+        //     width: 40,
+        //     height: 40,
+        //     border: "3px solid black",
+        //     background: "#CEE5F2",
+        //     borderRadius: 5,
+        //     padding: 5,
+        //     cursor: "pointer"
+        // };
         return(
             <div className="controls softShadow">
                 <form className="controlForm" onSubmit={e => e.preventDefault()}>
@@ -32,9 +33,9 @@ class Controls extends Component {
                     <div style={gap}/>
                     <p>{this.props.loading ? "Loading..." : "Records: " + this.props.recordCount}</p>
                     <div style={gap}/>
-                    <img onClick={() => this.props.switchView(true)} src={MapIcon} style={icon} alt="Map Icon"/>
+                    <img className="icon" onClick={() => this.props.switchView(true)} src={MapIcon} alt="Map Icon"/>
                     <div style={gap}/>
-                    <img onClick={() => this.props.switchView(false)} src={ChartIcon} style={icon} alt="Chart Icon"/>
+                    <img className="icon" onClick={() => this.props.switchView(false)} src={ChartIcon} alt="Chart Icon"/>
                 </form>
             </div>
         );

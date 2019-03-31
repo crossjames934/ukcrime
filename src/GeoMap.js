@@ -128,7 +128,7 @@ class GeoMap extends Component {
     render() {
         return (
             <div style={{display: this.props.mapView ? "block" : "none"}}>
-                <CrimeOverlay mouseX={this.state.mouseX} mouseY={this.state.mouseY} crime={this.state.highlightedCrime}/>
+                <CrimeOverlay forMap={true} mouseX={this.state.mouseX} mouseY={this.state.mouseY} crime={this.state.highlightedCrime}/>
                 <div ref={el => this.mapContainer = el} className="dataDisplay"/>
             </div>
         );

@@ -4,16 +4,16 @@ self.__precacheManifest = [
     "url": "/static/media/firearm.4b5ca8ac.svg"
   },
   {
-    "revision": "915c8190e508aa588ab7",
-    "url": "/static/css/main.1f6b192f.chunk.css"
+    "revision": "8f789b8928035f338045",
+    "url": "/static/css/main.7c8b4e89.chunk.css"
   },
   {
     "revision": "42ac5946195a7306e2a5",
     "url": "/static/js/runtime~main.a8a9905a.js"
   },
   {
-    "revision": "4874b600fb064f5b62a1",
-    "url": "/static/js/2.076db946.chunk.js"
+    "revision": "39ce1a47d7b08098d556",
+    "url": "/static/js/2.739a1b88.chunk.js"
   },
   {
     "revision": "a6978a280e628113e2eec527525990ed",
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "/static/media/drugs.0409f2eb.svg"
   },
   {
-    "revision": "915c8190e508aa588ab7",
-    "url": "/static/js/main.4800070d.chunk.js"
+    "revision": "8f789b8928035f338045",
+    "url": "/static/js/main.a810baeb.chunk.js"
   },
   {
     "revision": "9d6efa39fc2e96c12647dd9a9446e77a",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/static/media/chartIcon.534f6b50.svg"
   },
   {
-    "revision": "c5ffb81a5a95259b3979a1d2960300a3",
+    "revision": "4073533784d91266c7cf13210789248b",
     "url": "/index.html"
   }
 ];

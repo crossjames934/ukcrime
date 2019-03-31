@@ -55,6 +55,10 @@ input:focus {
     padding: 3px;
 }
 
+.markerContainer:hover {
+    border: 3px solid white;
+}
+
 .controls {
     background: #536B78;
     /*width: 400px;*/
@@ -74,6 +78,20 @@ input:focus {
 .formInput {
     font-size: 16px;
     padding: 2px;
+}
+
+.icon {
+    width: 40px;
+    height: 40px;
+    border: 3px solid black;
+    background: #CEE5F2;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.icon:hover {
+    border: 3px solid white;
 }
 
 .infoCardContainer {
@@ -99,4 +117,8 @@ input:focus {
     -webkit-box-shadow: 0 0 30px 2px rgba(0,0,0,0.75);
     -moz-box-shadow: 0 0 30px 2px rgba(0,0,0,0.75);
     box-shadow: 0 0 30px 2px rgba(0,0,0,0.75);
+}
+
+.barForChart:hover {
+    fill: #e5e5ff;
 }

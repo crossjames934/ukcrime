@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import * as d3 from 'd3';
 
+import CrimeOverlay from './CrimeOverlay';
+
 const chartContainer = "chartContainer";
 const mapSize = {
     width: "90vw",
@@ -8,6 +10,32 @@ const mapSize = {
 };
 
 class Graphs extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sortedBy: "object_of_search",
+            highlightedBar: null,
+            mouseX: 0,
+            mouseY: 0
+        };
+        this.handleSelect = this.handleSelect.bind(this);
+        this.mouseout = this.mouseout.bind(this);
+        this.mouseover = this.mouseover.bind(this);
+    }
+
+    mouseover(d, prop) {
+        const e = window.event;
+        setTimeout(() => {
+            this.setState({highlightedBar: prop, incidents: d, mouseX: e.clientX, mouseY: e.clientY});
+        }, 150);
+    }
+
+    mouseout() {
+        setTimeout(() => {
+            this.setState({highlightedBar: null});
+        }, 150);
+    }
+
     createGraph(data) {
         document.getElementById(chartContainer).innerHTML = "";
         // console.log(data);
@@ -36,17 +64,27 @@ class Graphs extends Component {
             .attr("width", mapSize.width)
             .attr("height", mapSize.height)
             .style("background", '#ACCBE1');
+            // .style("background", '#7C98B3');
         svg.selectAll("rect")
             .data(values)
             .enter()
             .append("rect")
+            .attr('class', 'barForChart')
             .attr("x", (d, i) => i * xGap + xGap / 2 + chartPaddingX - barWidth / 2)
             .attr("y", d => yScale(d) + chartPaddingY)
             .attr("width", barWidth)
             .attr("height", d => chartHeight - yScale(d))
-            .attr("fill", "#536B78")
+            .attr("fill", "#4f7ca8")
             .on('mouseover', (d, i) => {
-                console.log(d, properties[i]);
+                this.mouseover(d, properties[i]);
+                // const e = window.event;
+                // this.setState({highlightedBar: properties[i], incidents: d, mouseX: e.clientX, mouseY: e.clientY});
+                // console.log(d, properties[i], e.clientX, e.clientY);
+            })
+            .on('mouseout', (d, i) => {
+                this.mouseout();
+                // console.log('out');
+                // this.setState({highlightedBar: null});
             });
         const xAxis = d3.axisBottom(xScale);
         const yAxis = d3.axisLeft(yScale);
@@ -56,24 +94,22 @@ class Graphs extends Component {
         svg.append("g")
             .attr("transform", `translate(${chartPaddingX}, ${chartPaddingY})`)
             .call(yAxis);
-        const overlay = d3
-            .select("#"+chartContainer)
-            .append('div')
-            .style('background', '#ACCBE1')
-            .style('position', 'fixed')
-            .style('width', 300)
-            .style('height', 400)
-            .style('z-index', 10)
-            .style('top', 10)
-            .style('left', 20);
+        // d3
+        //     .select('body')
+        //     .append('div')
+        //     .style('background', '#ACCBE1')
+        //     .style('position', 'fixed')
+        //     .style('width', '300px')
+        //     .style('height', '400px')
+        //     .style('top', '10px')
     }
 
     componentDidUpdate() {
-        // console.log(this.props.data);
-        this.sortByCategory("object_of_search");
+        this.sortByCategory(this.state.sortedBy);
     }
 
-    sortByCategory(category) {
+    sortByCategory() {
+        const category = this.state.sortedBy;
         const data = this.props.data;
         const listOfSearchObjects = data.map(datum => datum[category]);
         const uniqueValues = [...new Set(listOfSearchObjects)];
@@ -84,9 +120,40 @@ class Graphs extends Component {
         this.createGraph(jsObjectForGraph);
     }
 
+    handleSelect(e) {
+        this.setState({sortedBy: e.target.value}, this.sortByCategory);
+    }
+
     render() {
+        const selectorContainerStyle = {
+            position: 'absolute',
+            width: 250,
+            top: window.innerHeight * 0.025,
+            left: window.innerWidth * 0.5 - 80,
+            fontSize: 14
+        };
+        const selectorStyle = {
+            height: 30,
+            margin: 3
+        };
         return (
             <div style={{display: !this.props.mapView ? "block" : "none"}}>
+                <CrimeOverlay
+                    forMap={false}
+                    crime={this.state.highlightedBar}
+                    incidents={this.state.incidents}
+                    mouseX={this.state.mouseX}
+                    mouseY={this.state.mouseY}
+                    sortedBy={this.state.sortedBy}
+                />
+                <div style={selectorContainerStyle}>
+                    <label htmlFor="sortBySelector">Sort By: </label>
+                    <select style={selectorStyle} id="sortBySelector" onChange={this.handleSelect}>
+                        <option value="object_of_search">Object of Search</option>
+                        <option value="age_range">Age Range</option>
+                        <option value="outcome">Outcome</option>
+                    </select>
+                </div>
                 <div style={mapSize} className="dataDisplay">
                     <div style={mapSize} id={chartContainer}/>
                 </div>
