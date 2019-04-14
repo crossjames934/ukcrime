@@ -35,6 +35,15 @@ class App extends Component {
         document.addEventListener('mouseup', () => {
             window.mouseIsDown = false;
         });
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(position => {
+                this.setState({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                });
+                console.log(position);
+            });
+        }
     }
 
     componentDidMount() {
